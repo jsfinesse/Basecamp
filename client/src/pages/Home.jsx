@@ -1,4 +1,5 @@
-import AddModalClient from "../components/AddClientModal";
+import AddClientModal from "../components/AddClientModal";
+import AddProjectModal from "../components/AddProjectModal";
 import Projects from "../components/Projects";
 import Clients from "../components/Clients";
 
@@ -6,7 +7,8 @@ export default function Home() {
     return (
         <>
             <div className="d-flex gap-3 mb-4">
-                <AddModalClient />
+                <AddClientModal />
+                <AddProjectModal />
             </div>
             <Projects />
             <hr />
