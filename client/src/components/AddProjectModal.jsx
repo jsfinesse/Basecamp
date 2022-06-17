@@ -39,7 +39,7 @@ export default function AddClientModal() {
 
         addProject(name, description, clientId, status);
 
-        setState({ name: "", description: "", status: "new" });
+        setState({ name: "", description: "", status: "new", clientId: "" });
     };
 
     if (loading) return null;
