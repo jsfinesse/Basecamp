@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaList } from "react-icons/fa";
 import { useMutation, useQuery } from "@apollo/client";
+import { ADD_PROJECT } from "../mutations/projectMutations";
 import { GET_PROJECTS } from "../queries/projectQueries";
 import { GET_CLIENTS } from "../queries/clientQueries";
 
@@ -14,6 +15,18 @@ export default function AddClientModal() {
 
     const { name, description, clientId, status } = state;
 
+    const [addProject] = useMutation(ADD_PROJECT, {
+        variables: { name, description, clientId, status },
+        update(cache, { data: { addProject } }) {
+            const { projects } = cache.readQuery({ query: GET_PROJECTS });
+
+            cache.writeQuery({
+                query: GET_PROJECTS,
+                data: { projects: [...projects, addProject] },
+            });
+        },
+    });
+
     // Get clients for selection
     const { loading, error, data } = useQuery(GET_CLIENTS);
 
@@ -23,6 +36,8 @@ export default function AddClientModal() {
         if (name === "" || description === "" || status === "") {
             return alert("Please do not leave any field empty");
         }
+
+        addProject(name, description, clientId, status);
 
         setState({ name: "", description: "", status: "new" });
     };
