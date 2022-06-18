@@ -26,11 +26,7 @@ app.use(
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
-    let url = path.join(__dirname, "public", "index.html");
-    if(!url.startsWith('/graphql/')) {
-        url = url.substring(1);
-    }
-    res.sendFile(url);
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 app.listen(port, console.log("Server running on PORT:", port));
