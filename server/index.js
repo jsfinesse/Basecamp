@@ -27,7 +27,7 @@ app.use(express.static("public"));
 
 app.get("*", (req, res) => {
     let url = path.join(__dirname, "public", "index.html");
-    if(!url.startsWith('/app/')) {
+    if(!url.startsWith('/graphql/')) {
         url = url.substring(1);
     }
     res.sendFile(url);
