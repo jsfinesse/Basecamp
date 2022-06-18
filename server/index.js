@@ -26,7 +26,11 @@ app.use(
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+    let url = path.join(__dirname, "public", "index.html");
+    if(!url.startsWith('/app/')) {
+        url = url.substring(1);
+    }
+    res.sendFile(url);
 });
 
 app.listen(port, console.log("Server running on PORT:", port));
